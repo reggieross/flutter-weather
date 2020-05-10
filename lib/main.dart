@@ -1,32 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_weather/clients/weather_api_client.dart';
+import 'package:flutter_weather/repositories/weather_repository.dart';
+import 'package:flutter_weather/delegates/simple_bloc_delegate.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_weather/widgets/weather.dart';
+import 'package:flutter_weather/blocs/weather/weather_bloc.dart';
+
+
 
 void main() {
-  runApp(MyApp());
+  BlocSupervisor.delegate = SimpleBlocDelegate();
+  final WeatherRepository weatherRepository = WeatherRepository(
+    weatherApiClient: WeatherApiClient(
+      httpClient: http.Client(),
+    ),
+  );
+
+  runApp(App(weatherRepository: weatherRepository));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class App extends StatelessWidget {
+  final WeatherRepository weatherRepository;
+
+  App({Key key, @required this.weatherRepository})
+      : assert(weatherRepository != null),
+        super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+      title: 'Flutter Weather',
+      home: BlocProvider(
+        create: (context) =>
+            WeatherBloc(weatherRepository: weatherRepository),
+        child: Weather(),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
