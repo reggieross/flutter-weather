@@ -67,41 +67,29 @@ class Weather extends Equatable {
   }
 
   static WeatherCondition _mapStringToWeatherCondition(String input) {
-    WeatherCondition state;
     switch (input) {
       case 'sn':
-        state = WeatherCondition.snow;
-        break;
+        return WeatherCondition.snow;
       case 'sl':
-        state = WeatherCondition.sleet;
-        break;
+        return WeatherCondition.sleet;
       case 'h':
-        state = WeatherCondition.hail;
-        break;
+        return WeatherCondition.hail;
       case 't':
-        state = WeatherCondition.thunderstorm;
-        break;
+        return WeatherCondition.thunderstorm;
       case 'hr':
-        state = WeatherCondition.heavyRain;
-        break;
+        return WeatherCondition.heavyRain;
       case 'lr':
-        state = WeatherCondition.lightRain;
-        break;
+        return WeatherCondition.lightRain;
       case 's':
-        state = WeatherCondition.showers;
-        break;
+        return WeatherCondition.showers;
       case 'hc':
-        state = WeatherCondition.heavyCloud;
-        break;
+        return WeatherCondition.heavyCloud;
       case 'lc':
-        state = WeatherCondition.lightCloud;
-        break;
+        return WeatherCondition.lightCloud;
       case 'c':
-        state = WeatherCondition.clear;
-        break;
+        return WeatherCondition.clear;
       default:
-        state = WeatherCondition.unknown;
+        return WeatherCondition.unknown;
     }
-    return state;
   }
 }
