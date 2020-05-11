@@ -32,18 +32,20 @@ class TemperatureVM extends Equatable {
       return '';
     }
 
-    final degreeSymbol = format == TemperatureFormat.Celsius
-        ? '°C'
-        : '°F';
-
-    final value = format == TemperatureFormat.Fahrenheit
-      ? _convertCelsiusToFahrenheit(t)
-      : t;
-
-    return '${value.round()}$degreeSymbol';
+    switch(format) {
+      case TemperatureFormat.Fahrenheit:
+        return _formatFahrenheit(t);
+      case TemperatureFormat.Celsius:
+        return _formatCelsius(t);
+    }
   }
 
-  static double _convertCelsiusToFahrenheit(double temp) {
-    return (temp * (9/5)) + 32;
+  static String _formatFahrenheit(double temp) {
+    double tempFahrenheit = (temp * (9/5)) + 32;
+    return '${tempFahrenheit.round()}°F';
+  }
+
+  static String _formatCelsius(double temp) {
+    return '${temp.round()}°C';
   }
 }
