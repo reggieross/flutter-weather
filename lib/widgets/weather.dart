@@ -34,7 +34,9 @@ class Weather extends StatelessWidget {
           // ignore: missing_return
           builder: (context, state) {
             if (state is WeatherEmpty) {
-              return Center(child: Text('Please Select a Location'));
+              BlocProvider.of<WeatherBloc>(context)
+                  .add(FetchWeather(city: 'Chicago'));
+              return Center(child: CircularProgressIndicator());
             }
             if (state is WeatherLoading) {
               return Center(child: CircularProgressIndicator());

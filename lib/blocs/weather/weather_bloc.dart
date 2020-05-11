@@ -17,13 +17,17 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   @override
   Stream<WeatherState> mapEventToState(WeatherEvent event) async* {
     if (event is FetchWeather) {
+      yield* fetchWeather(event.city);
+    }
+  }
+
+  Stream<WeatherState> fetchWeather(String city) async* {
       yield WeatherLoading();
       try {
-        final Weather weather = await weatherRepository.getWeather(event.city);
+        final Weather weather = await weatherRepository.getWeather(city);
         yield WeatherLoaded(weather: weather);
       } catch (_) {
         yield WeatherError();
       }
-    }
   }
 }
