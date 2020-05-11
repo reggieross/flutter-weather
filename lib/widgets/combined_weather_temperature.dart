@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_weather/models/models.dart' as model;
+import 'package:flutter_weather/view_models/temperature_view_model.dart';
 import 'package:flutter_weather/widgets/widgets.dart';
 
 class CombinedWeatherTemperature extends StatelessWidget {
@@ -26,9 +27,10 @@ class CombinedWeatherTemperature extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(20.0),
               child: Temperature(
-                temperature: weather.temp,
-                high: weather.maxTemp,
-                low: weather.minTemp,
+                temperature: TemperatureVM.fromModel(
+                    weather.temperature,
+                    model.TemperatureFormat.Celsius
+                ),
               ),
             ),
           ],

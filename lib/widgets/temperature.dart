@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/view_models/temperature_view_model.dart';
 
 class Temperature extends StatelessWidget {
-  final double temperature;
-  final double low;
-  final double high;
+  final TemperatureVM temperature;
 
   Temperature({
     Key key,
     this.temperature,
-    this.low,
-    this.high,
   }) : super(key: key);
 
   @override
@@ -19,7 +16,7 @@ class Temperature extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Text(
-            '${_formattedTemperature(temperature)}°',
+            '${temperature.temp}',
             style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.w600,
@@ -30,7 +27,7 @@ class Temperature extends StatelessWidget {
         Column(
           children: [
             Text(
-              'max: ${_formattedTemperature(high)}°',
+              'max: ${temperature.high}°',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w100,
@@ -38,7 +35,7 @@ class Temperature extends StatelessWidget {
               ),
             ),
             Text(
-              'min: ${_formattedTemperature(low)}°',
+              'min: ${temperature.low}',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w100,
@@ -50,6 +47,4 @@ class Temperature extends StatelessWidget {
       ],
     );
   }
-
-  int _formattedTemperature(double t) => t.round();
 }
